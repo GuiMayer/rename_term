@@ -21,11 +21,13 @@ A tool that replaces terms across all files in a directory tree while **intellig
    | Platform | File |
    |---|---|
    | 🪟 Windows x64 | `rename_term-windows-x64.exe` |
-   | 🪟 Windows ARM64 | `rename_term-windows-arm64.exe` |
+   | 🪟 Windows ARM64 | `rename_term-windows-arm64.exe` \* |
    | 🐧 Linux x64 | `rename_term-linux-x64` |
    | 🐧 Linux ARM64 | `rename_term-linux-arm64` |
    | 🍎 macOS Apple Silicon | `rename_term-macos-arm64` |
    | 🍎 macOS Intel | `rename_term-macos-x64` |
+
+   *\* Windows ARM64 requires GitHub's paid larger runners. If the file is not listed in the release, see [Building locally](#building-locally) below.*
 
 2. Copy the file into the root folder of the project you want to process
 3. **Windows:** double-click the file
@@ -139,9 +141,20 @@ rename_term/
 │   └── tests/                  ← unit & integration tests
 │       ├── test_case_utils.py
 │       └── test_file_replacer.py
-└── release/                    ← compiled executables
-    └── rename_term.exe
+└── release/                    ← compiled executables (via GitHub Actions)
 ```
+
+<a id="building-locally"></a>
+
+> [!NOTE]
+> **Building locally (Windows ARM64 or any platform)**
+> If the release page doesn't have a binary for your platform, you can build it yourself:
+> ```bash
+> pip install pyinstaller
+> pyinstaller --onefile --console --name rename_term source/rename_term.py
+> # Output: dist/rename_term.exe (or dist/rename_term on Unix)
+> ```
+> Requires Python 3.8+ installed.
 
 ---
 
@@ -162,11 +175,13 @@ Uma ferramenta que substitui termos em todos os arquivos de uma pasta de forma r
    | Plataforma | Arquivo |
    |---|---|
    | 🪟 Windows x64 | `rename_term-windows-x64.exe` |
-   | 🪟 Windows ARM64 | `rename_term-windows-arm64.exe` |
+   | 🪟 Windows ARM64 | `rename_term-windows-arm64.exe` \* |
    | 🐧 Linux x64 | `rename_term-linux-x64` |
    | 🐧 Linux ARM64 | `rename_term-linux-arm64` |
    | 🍎 macOS Apple Silicon | `rename_term-macos-arm64` |
    | 🍎 macOS Intel | `rename_term-macos-x64` |
+
+   *\* Windows ARM64 requer os larger runners pagos do GitHub. Se o arquivo não aparecer na release, veja [Build local](#build-local) abaixo.*
 
 2. Copie o arquivo para a pasta raiz do projeto que você quer processar
 3. **Windows:** clique duas vezes no arquivo
@@ -280,6 +295,17 @@ rename_term/
 │   └── tests/                  ← testes unitários e de integração
 │       ├── test_case_utils.py
 │       └── test_file_replacer.py
-└── release/                    ← executáveis compilados
-    └── rename_term.exe
+└── release/                    ← executáveis compilados (via GitHub Actions)
 ```
+
+<a id="build-local"></a>
+
+> [!NOTE]
+> **Build local (Windows ARM64 ou qualquer plataforma)**
+> Se a página de release não tiver o binário para a sua plataforma, você mesmo pode compilar:
+> ```bash
+> pip install pyinstaller
+> pyinstaller --onefile --console --name rename_term source/rename_term.py
+> # Saída: dist/rename_term.exe (ou dist/rename_term no Unix)
+> ```
+> Requer Python 3.8+ instalado.
