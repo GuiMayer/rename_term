@@ -16,6 +16,7 @@ jobs:
   build:
     name: Build — ${{ matrix.asset_name }}
     runs-on: ${{ matrix.os }}
+    continue-on-error: true   # um runner indisponível não bloqueia o release
     strategy:
       fail-fast: false   # um build falho não cancela os demais
       matrix:
@@ -40,11 +41,13 @@ jobs:
             artifact_name: rename_term
             asset_name: rename_term-macos-x64
 
-          # Windows ARM64 requer GitHub larger runners (pago).
-          # Descomente abaixo se tiver acesso:
-          # - os: windows-11-arm
-          #   artifact_name: rename_term.exe
-          #   asset_name: rename_term-windows-arm64.exe
+          # Windows ARM64 requer GitHub larger runners.
+          # Funciona em contas Team/Enterprise ou com billing habilitado.
+          # Se o runner não estiver disponível, o job falha silenciosamente
+          # (continue-on-error: true) e os demais platforms são publicados.
+          - os: windows-11-arm
+            artifact_name: rename_term.exe
+            asset_name: rename_term-windows-arm64.exe
 
     steps:
       - uses: actions/checkout@v4
