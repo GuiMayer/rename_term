@@ -21,6 +21,7 @@ A tool that replaces terms across all files in a directory tree while **intellig
    | Platform | File |
    |---|---|
    | 🪟 Windows x64 | `rename_term-windows-x64.exe` |
+   | 🪟 Windows ARM64 | `rename_term-windows-arm64.exe` |
    | 🐧 Linux x64 | `rename_term-linux-x64` |
    | 🐧 Linux ARM64 | `rename_term-linux-arm64` |
    | 🍎 macOS Apple Silicon | `rename_term-macos-arm64` |
@@ -161,6 +162,7 @@ Uma ferramenta que substitui termos em todos os arquivos de uma pasta de forma r
    | Plataforma | Arquivo |
    |---|---|
    | 🪟 Windows x64 | `rename_term-windows-x64.exe` |
+   | 🪟 Windows ARM64 | `rename_term-windows-arm64.exe` |
    | 🐧 Linux x64 | `rename_term-linux-x64` |
    | 🐧 Linux ARM64 | `rename_term-linux-arm64` |
    | 🍎 macOS Apple Silicon | `rename_term-macos-arm64` |
