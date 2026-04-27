@@ -38,9 +38,6 @@ jobs:
             artifact_name: rename_term
             asset_name: rename_term-macos-arm64
 
-          - os: macos-13           # Último runner Intel disponível
-            artifact_name: rename_term
-            asset_name: rename_term-macos-x64
 
           # Windows ARM64 requer GitHub larger runners.
           # Funciona em contas Team/Enterprise ou com billing habilitado.
@@ -106,7 +103,6 @@ jobs:
             | 🐧 Linux x64 | `rename_term-linux-x64` |
             | 🐧 Linux ARM64 | `rename_term-linux-arm64` |
             | 🍎 macOS Apple Silicon (M1/M2/M3) | `rename_term-macos-arm64` |
-            | 🍎 macOS Intel | `rename_term-macos-x64` |
 
             > **UTF-8 only** — files with other encodings are automatically skipped.
 
