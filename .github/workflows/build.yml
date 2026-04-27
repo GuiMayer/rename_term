@@ -17,6 +17,7 @@ jobs:
     name: Build — ${{ matrix.asset_name }}
     runs-on: ${{ matrix.os }}
     continue-on-error: true   # um runner indisponível não bloqueia o release
+    timeout-minutes: 45        # se o runner não aparecer/terminar em 45min, falha silenciosamente
     strategy:
       fail-fast: false   # um build falho não cancela os demais
       matrix:
