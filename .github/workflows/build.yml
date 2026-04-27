@@ -1,0 +1,115 @@
+name: Build & Release
+
+# Roda em push para main ou manualmente via Actions tab
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  # ─────────────────────────────────────────────────────────────────────────
+  # Etapa 1: Build em cada plataforma em paralelo
+  # ─────────────────────────────────────────────────────────────────────────
+  build:
+    name: Build — ${{ matrix.asset_name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false   # um build falho não cancela os demais
+      matrix:
+        include:
+          - os: windows-latest
+            artifact_name: rename_term.exe
+            asset_name: rename_term-windows-x64.exe
+
+          - os: ubuntu-latest
+            artifact_name: rename_term
+            asset_name: rename_term-linux-x64
+
+          - os: ubuntu-24.04-arm
+            artifact_name: rename_term
+            asset_name: rename_term-linux-arm64
+
+          - os: macos-latest       # Apple Silicon (M1/M2/M3)
+            artifact_name: rename_term
+            asset_name: rename_term-macos-arm64
+
+          - os: macos-13           # Último runner Intel disponível
+            artifact_name: rename_term
+            asset_name: rename_term-macos-x64
+
+          # Windows ARM64 requer GitHub larger runners (pago).
+          # Descomente abaixo se tiver acesso:
+          # - os: windows-11-arm
+          #   artifact_name: rename_term.exe
+          #   asset_name: rename_term-windows-arm64.exe
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install PyInstaller
+        run: pip install pyinstaller
+
+      - name: Build executable
+        run: pyinstaller --onefile --console --name rename_term source/rename_term.py
+
+      - name: Rename to platform-specific name
+        shell: bash
+        run: mv dist/rename_term* "dist/${{ matrix.asset_name }}"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.asset_name }}
+          path: dist/${{ matrix.asset_name }}
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # Etapa 2: Publica GitHub Release com todos os binários
+  # ─────────────────────────────────────────────────────────────────────────
+  release:
+    name: Publish Release
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Create or update latest release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: latest
+          name: "Latest Build"
+          allowUpdates: true
+          removeArtifacts: true
+          body: |
+            Automated multi-platform build. Always reflects the latest commit on `main`.
+
+            ## Downloads
+
+            | Platform | File |
+            |---|---|
+            | 🪟 Windows x64 | `rename_term-windows-x64.exe` |
+            | 🐧 Linux x64 | `rename_term-linux-x64` |
+            | 🐧 Linux ARM64 | `rename_term-linux-arm64` |
+            | 🍎 macOS Apple Silicon (M1/M2/M3) | `rename_term-macos-arm64` |
+            | 🍎 macOS Intel | `rename_term-macos-x64` |
+
+            > **UTF-8 only** — files with other encodings are automatically skipped.
+
+            ### Linux / macOS — first run
+            ```bash
+            chmod +x rename_term-linux-x64   # or the macOS variant
+            ./rename_term-linux-x64
+            ```
+          artifacts: "dist/*"
+          token: ${{ secrets.GITHUB_TOKEN }}

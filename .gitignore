@@ -7,3 +7,6 @@ venv/
 dist/
 build/
 *.spec
+release/*.exe
+release/rename_term
+release/rename_term-*

@@ -16,9 +16,23 @@ A tool that replaces terms across all files in a directory tree while **intellig
 
 ### ⬇️ Download & Quick Start
 
-1. Go to the **[`release/`](./release/)** folder and download `rename_term.exe`
-2. Copy the `.exe` into the root folder of the project you want to process
-3. Double-click the file
+1. Go to the **[Releases page](https://github.com/GuiMayer/rename_term/releases/latest)** and download the file for your platform:
+
+   | Platform | File |
+   |---|---|
+   | 🪟 Windows x64 | `rename_term-windows-x64.exe` |
+   | 🐧 Linux x64 | `rename_term-linux-x64` |
+   | 🐧 Linux ARM64 | `rename_term-linux-arm64` |
+   | 🍎 macOS Apple Silicon | `rename_term-macos-arm64` |
+   | 🍎 macOS Intel | `rename_term-macos-x64` |
+
+2. Copy the file into the root folder of the project you want to process
+3. **Windows:** double-click the file
+   **Linux / macOS:** make it executable first, then run:
+   ```bash
+   chmod +x rename_term-linux-x64
+   ./rename_term-linux-x64
+   ```
 4. Type the term to search, the replacement, and answer the prompts
 5. Done — the tool processes all `.md`, `.txt`, and `.rst` files recursively
 
@@ -142,9 +156,23 @@ Uma ferramenta que substitui termos em todos os arquivos de uma pasta de forma r
 
 ### ⬇️ Download e Início Rápido
 
-1. Acesse a pasta **[`release/`](./release/)** e baixe o arquivo `rename_term.exe`
-2. Copie o `.exe` para a pasta raiz do projeto que você quer processar
-3. Clique duas vezes no arquivo
+1. Acesse a **[página de Releases](https://github.com/GuiMayer/rename_term/releases/latest)** e baixe o arquivo para a sua plataforma:
+
+   | Plataforma | Arquivo |
+   |---|---|
+   | 🪟 Windows x64 | `rename_term-windows-x64.exe` |
+   | 🐧 Linux x64 | `rename_term-linux-x64` |
+   | 🐧 Linux ARM64 | `rename_term-linux-arm64` |
+   | 🍎 macOS Apple Silicon | `rename_term-macos-arm64` |
+   | 🍎 macOS Intel | `rename_term-macos-x64` |
+
+2. Copie o arquivo para a pasta raiz do projeto que você quer processar
+3. **Windows:** clique duas vezes no arquivo
+   **Linux / macOS:** torne executável e rode:
+   ```bash
+   chmod +x rename_term-linux-x64
+   ./rename_term-linux-x64
+   ```
 4. Digite o termo a buscar, o substituto, e responda às perguntas
 5. Pronto — a ferramenta processa todos os arquivos `.md`, `.txt` e `.rst` recursivamente
 
